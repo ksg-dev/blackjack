@@ -14,46 +14,71 @@ import random
 
 cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
 dealer_hand = []
-
 user_hand = []
-playing = True
+
 
 
 # return random card from cards
-def deal_card(count):
-    for i in range(count):
-        dealer_hand.append(random.choice(cards))
-        user_hand.append(random.choice(cards))
-    return dealer_hand, user_hand
+def deal_card():
+    return(random.choice(cards))
         
 
-
-
-# Determine winner once scores are final
-def winner():
-    pass
+# Calculate score, check for ace sub, check for blackjack
+def calculate_score(hand):
+    score = sum(hand)
+    if 11 in hand:
+        if sum(hand) > 21:
+            hand.remove(11)
+            hand.append(1)
+        elif len(hand) == 2 and 10 in hand:
+            return 0
+        else:
+            return 11
+    else:
+        return score
 
 def main():
-    start = input("Do you want to play a game of Blackjack? Type 'y' or 'n': ").lower()
-    if start == 'n':
-        return
-    elif start == 'y':
-        dealer_hand, user_hand = deal_card(2)
-        dealer_score = sum(dealer_hand)
-        user_score = sum(user_hand)
-        print(f"Your cards: {user_hand}, current score: {user_score}")
-        print(f"Computer's first card: {dealer_hand[0]}")
-        hit = ("Type 'y' to get another card, type 'n' to pass: ")
-        # Test print
-        print(f"dealer score: {dealer_score}")
-        if hit == 'y':
-            user_hand.append(deal_card(1))
-    # Test print
-    print(f"dealer hand: {dealer_hand}")
-    # Test print
-    print(f"user hand: {user_hand}")
+    playing = True
+    dealer_hand = random.sample(cards, 2)
+    user_hand = random.sample(cards,2)
+    while playing:
+        dealer_score = int(calculate_score(dealer_hand))
+        user_score = int(calculate_score(user_hand))
+        # check for dealer blackjack
+        if dealer_score == 0:
+            playing = False
+            print(f"Your final hand: {user_hand}, final score: {user_score}")
+            print(f"Dealer's final hand: {dealer_hand}, final score: {dealer_score}")
+            print("The Dealer got BlackJack! You Lose!")
+        # Check scores
+        elif user_score == 0:
+            playing = False
+            print(f"Your final hand: {user_hand}, final score: {user_score}")
+            print(f"Dealer's final hand: {dealer_hand}, final score: {dealer_score}")
+            print("You got BlackJack! You win!")
+        elif user_score > 21:
+            playing = False
+            print(f"Your final hand: {user_hand}, final score: {user_score}")
+            print(f"Dealer's final hand: {dealer_hand}, final score: {dealer_score}")
+            print("You went over! You lose!")
+        else:
+            hit = ("Type 'y' to get another card, type 'n' to pass: ")
+            if hit == 'y':
+                user_hand.append(deal_card())
+                # Test print
+                print(f"user_hand: {user_hand}, score: {user_score}")
+                 # Test print
+                print(f"dealer_hand: {dealer_hand}, score: {dealer_score}")
+            if dealer_score < 17:
+                dealer_hand.append(deal_card())
+            
+   
 
 
 
-main()
+start = input("Do you want to play a game of Blackjack? Type 'y' or 'n': ").lower()
+if start == 'y':
+    main()
+else:
+    print("Thanks for playing. Goodbye.")
         
