@@ -35,15 +35,15 @@ def calculate_score(hand):
         else:
             return 11
     else:
-        return score
+        return int(score)
 
 def main():
     playing = True
     dealer_hand = random.sample(cards, 2)
     user_hand = random.sample(cards,2)
     while playing:
-        dealer_score = int(calculate_score(dealer_hand))
-        user_score = int(calculate_score(user_hand))
+        dealer_score = calculate_score(dealer_hand)
+        user_score = calculate_score(user_hand)
         # check for dealer blackjack
         if dealer_score == 0:
             playing = False
@@ -62,7 +62,9 @@ def main():
             print(f"Dealer's final hand: {dealer_hand}, final score: {dealer_score}")
             print("You went over! You lose!")
         else:
-            hit = ("Type 'y' to get another card, type 'n' to pass: ")
+            print(f"Your cards: {user_hand}, current score: {user_score}")
+            print(f"Dealer's first card: {dealer_hand[0]}")
+            hit = (input("Type 'y' to get another card, type 'n' to pass: "))
             if hit == 'y':
                 user_hand.append(deal_card())
                 # Test print
@@ -71,6 +73,18 @@ def main():
                 print(f"dealer_hand: {dealer_hand}, score: {dealer_score}")
             if dealer_score < 17:
                 dealer_hand.append(deal_card())
+            elif hit == 'n':
+                playing = False
+                print(f"Your final hand: {user_hand}, final score: {user_score}")
+                print(f"Dealer's final hand: {dealer_hand}, final score: {dealer_score}")
+                if user_score == dealer_score:
+                    print("It's a draw!")
+                elif dealer_score > 21:
+                    print("Dealer busted! You Win!")
+                elif user_score > dealer_score:
+                    print("You win!")
+                else:
+                    print("Dealer wins, you lose!")
             
    
 
