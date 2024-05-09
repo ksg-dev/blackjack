@@ -57,17 +57,17 @@ def main():
         if dealer_score == 0:
             playing = False
             final_score(user_hand, dealer_hand, user_score, dealer_score)
-            print("The Dealer got BlackJack! You Lose!")
+            print("The Dealer got BlackJack! 😱 You Lose!")
         # Check for user blackjack
         elif user_score == 0:
             playing = False
             final_score(user_hand, dealer_hand, user_score, dealer_score)
-            print("You got BlackJack! You win!")
+            print("You got BlackJack! 😎 You win!")
         # Check for bust
         elif user_score > 21:
             playing = False
             final_score(user_hand, dealer_hand, user_score, dealer_score)
-            print("You went over! You lose!")
+            print("You went over! 😭 You lose!")
         # display hand, dealer 1st card, prompt to hit or stay
         else:
             print(f"Your cards: {user_hand}, current score: {user_score}")
@@ -88,13 +88,13 @@ def main():
                 user_score = calculate_score(user_hand)
                 final_score(user_hand, dealer_hand, user_score, dealer_score)
                 if user_score == dealer_score:
-                    print("It's a draw!")
+                    print("Draw 🙃")
                 elif dealer_score > 21:
-                    print("Dealer busted! You Win!")
+                    print("Dealer busted! 😁 You Win!")
                 elif user_score > dealer_score:
-                    print("You win!")
+                    print("You win! 😃")
                 else:
-                    print("Dealer wins, you lose!")
+                    print("Dealer wins, you lose! 😤")
     # Ask player if they want to play again
     again = input("Would you like to play again? Type 'y' or 'n': ")
     if again == 'y':
