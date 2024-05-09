@@ -1,5 +1,6 @@
 import random
 from clear import clear
+from art import logo
 
 ############### Our Blackjack House Rules #####################
 
@@ -105,6 +106,7 @@ def main():
 
 
 def start():
+    print(logo)
     start = input("Do you want to play a game of Blackjack? Type 'y' or 'n': ").lower()
     if start == 'y':
         main()
